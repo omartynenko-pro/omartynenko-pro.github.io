@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>ИИ-ассистент-бот для поиска работы — O.Martynenko.pro</title>
+
+<!-- ==================== МЕТА-ТЕГИ ДЛЯ ПРЕВЬЮ ==================== -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ИИ-ассистент-бот для поиска работы — O.Martynenko.pro">
+<meta property="og:description" content="Находит вакансии, считает Match Score, пишет cover-письма и напоминает о дедлайнах. Бесплатно, в Telegram.">
+<meta property="og:image" content="https://omartynenko-pro.github.io/bot-hero.jpg">
+<meta property="og:url" content="https://omartynenko-pro.github.io/bot.html">
+<meta property="og:site_name" content="O.Martynenko.pro">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ИИ-ассистент-бот для поиска работы — O.Martynenko.pro">
+<meta name="twitter:description" content="Находит вакансии, считает Match Score, пишет cover-письма и напоминает о дедлайнах.">
+<meta name="twitter:image" content="https://omartynenko-pro.github.io/bot-hero.jpg">
+<!-- ============================================================ -->
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif; color:#171d3a; line-height:1.6;
+    background:linear-gradient(180deg,#fdfeff 0%,#f4f8fe 18%,#edf2fc 36%,#f8fbff 55%,#eef4fc 74%,#f6f9ff 100%); }
+  .container { max-width:1120px; margin:0 auto; padding:0 20px; }
+  section { padding:90px 0; scroll-margin-top:80px; position:relative; overflow:hidden; }
+  h2 { font-size:clamp(26px,3.4vw,40px); line-height:1.2; margin-bottom:16px; color:#141a3d; }
+  h3 { color:#1b2350; }
+  .eyebrow { color:#5b6cff; text-transform:uppercase; letter-spacing:.12em; font-size:13px; font-weight:700; margin-bottom:12px; }
+  .section-sub { color:#5a6180; max-width:780px; margin-bottom:40px; font-size:17px; }
+
+  .blob { position:absolute; border-radius:50%; filter:blur(70px); opacity:.55; pointer-events:none; animation:blobFloat 16s ease-in-out infinite alternate; }
+  @keyframes blobFloat { from{transform:translate(0,0) scale(1)} to{transform:translate(50px,-35px) scale(1.18)} }
+
+  .btn { position:relative; overflow:hidden; display:inline-block; padding:14px 28px; border-radius:12px; background:linear-gradient(90deg,#6c8cff,#a06bff); color:#fff; text-decoration:none; font-weight:600; transition:transform .3s, box-shadow .3s; }
+  .btn::after { content:""; position:absolute; top:0; left:-80%; width:60%; height:100%; background:linear-gradient(105deg,transparent,rgba(255,255,255,.55),transparent); transform:skewX(-20deg); transition:left .6s ease; }
+  .btn:hover { transform:translateY(-3px); box-shadow:0 14px 30px rgba(90,110,255,.35); }
+  .btn:hover::after { left:120%; }
+  .btn-secondary { background:rgba(255,255,255,.7); border:1px solid #c9cde0; color:#2a3355; }
+  .btn-small { padding:9px 18px; border-radius:10px; font-size:14px; }
+
+  .nav { position:fixed; top:0; left:0; right:0; z-index:100; background:transparent; border-bottom:1px solid transparent; transition:background .45s, box-shadow .45s, border-color .45s; }
+  .nav-inner { display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo { font-weight:700; color:#fff; text-decoration:none; transition:color .45s; }
+  .menu { display:flex; gap:22px; align-items:center; }
+  .menu a { color:#dfe6ff; text-decoration:none; font-size:15px; transition:color .3s; }
+  .menu a:hover { color:#9db4ff; }
+  .nav.scrolled { background:rgba(255,255,255,.88); backdrop-filter:blur(12px); border-color:#e7ebf5; box-shadow:0 6px 24px rgba(30,50,120,.08); }
+  .nav.scrolled .logo { color:#2a3355; }
+  .nav.scrolled .menu a { color:#33406b; }
+  .nav.scrolled .menu a:hover { color:#5b6cff; }
+
+  /* ===== HERO ===== */
+  .hero { position:relative; min-height:100vh; display:flex; align-items:center; overflow:hidden; padding:120px 0 90px; background:#0b1030; }
+  .hero-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; animation:heroHands 12s ease-in-out infinite alternate; }
+  @keyframes heroHands { from{transform:scale(1.12)} to{transform:scaleX(1.02) scaleY(1.16)} }
+  .hero-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,rgba(8,12,40,.78) 0%,rgba(8,12,40,.45) 45%,rgba(11,16,48,.9) 100%); }
+  .spark { position:absolute; left:50%; top:52%; width:12px; height:12px; margin:-6px; border-radius:50%; background:#fff; z-index:1; opacity:0; pointer-events:none;
+    box-shadow:0 0 24px 8px rgba(170,200,255,.9),0 0 70px 28px rgba(120,140,255,.5); animation:sparkGlow 24s ease-in-out infinite; }
+  @keyframes sparkGlow {
+    0%,34% { opacity:0; transform:scale(.3); filter:blur(0); box-shadow:0 0 0 0 rgba(170,200,255,0),0 0 0 0 rgba(120,140,255,0); }
+    42% { opacity:.5; transform:scale(.9); box-shadow:0 0 24px 8px rgba(170,200,255,.7),0 0 60px 24px rgba(120,140,255,.4); }
+    50% { opacity:1; transform:scale(1.6); box-shadow:0 0 34px 12px rgba(190,215,255,.95),0 0 110px 46px rgba(120,140,255,.6); }
+    58% { opacity:.6; transform:scale(2.2); filter:blur(3px); }
+    66%,100% { opacity:0; transform:scale(2.8); filter:blur(10px); box-shadow:0 0 60px 30px rgba(170,200,255,0),0 0 140px 80px rgba(120,140,255,0); }
+  }
+  .particles { position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
+  .particles span { position:absolute; bottom:-40px; border-radius:50%; background:#9db4ff; box-shadow:0 0 14px 3px rgba(140,170,255,.75); opacity:0; animation:floatUp linear infinite; }
+  .particles span:nth-child(1){left:8%;width:6px;height:6px;animation-duration:9s}
+  .particles span:nth-child(2){left:22%;width:4px;height:4px;animation-duration:12s;animation-delay:2s}
+  .particles span:nth-child(3){left:37%;width:5px;height:5px;animation-duration:10s;animation-delay:4s}
+  .particles span:nth-child(4){left:52%;width:3px;height:3px;animation-duration:13s;animation-delay:1s}
+  .particles span:nth-child(5){left:66%;width:6px;height:6px;animation-duration:9.5s;animation-delay:3s}
+  .particles span:nth-child(6){left:78%;width:4px;height:4px;animation-duration:11s;animation-delay:5s}
+  .particles span:nth-child(7){left:88%;width:5px;height:5px;animation-duration:10.5s;animation-delay:2.5s}
+  .particles span:nth-child(8){left:45%;width:4px;height:4px;animation-duration:14s;animation-delay:6s}
+  @keyframes floatUp { 0%{transform:translateY(0);opacity:0} 10%{opacity:.9} 90%{opacity:.4} 100%{transform:translateY(-105vh);opacity:0} }
+  .hero-content { position:relative; z-index:2; text-align:center; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+  .hero-content > * { animation:fadeUp .9s cubic-bezier(.2,.7,.3,1) both; }
+  .hero-content > :nth-child(1){animation-delay:.15s}
+  .hero-content > :nth-child(2){animation-delay:.35s}
+  .hero-content > :nth-child(3){animation-delay:.6s}
+  .hero-content > :nth-child(4){animation-delay:.8s}
+  .badge { display:inline-block; padding:8px 16px; border-radius:999px; background:rgba(108,140,255,.18); border:1px solid rgba(108,140,255,.5); color:#bcd0ff; font-size:14px; margin-bottom:20px; }
+  .hero h1 { font-size:clamp(30px,4.6vw,54px); line-height:1.15; max-width:880px; margin:0 auto 22px; color:#fff; }
+  .hero-sub { max-width:740px; margin:0 auto 30px; font-size:18px; color:#e6ebff; }
+
+  .hero-fade { height:130px; position:relative; background:linear-gradient(180deg,#0b1030 0%,#33406b 40%,#cdd7ee 78%,#fdfeff 100%); }
+  .hero-arrow { position:absolute; top:-36px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:3px; z-index:6; cursor:pointer; text-decoration:none; transition:transform .3s; }
+  .hero-arrow:hover { transform:translateX(-50%) scale(1.15); }
+  .hero-arrow span { width:14px; height:14px; border-right:3px solid #8fb0ff; border-bottom:3px solid #8fb0ff; opacity:0; filter:drop-shadow(0 0 6px rgba(140,170,255,.8)); animation:slideArrow 1.8s linear infinite; }
+  .hero-arrow span:nth-child(2){animation-delay:.3s}
+  .hero-arrow span:nth-child(3){animation-delay:.6s}
+  @keyframes slideArrow { 0%{opacity:0;transform:rotate(45deg) translate(-9px,-9px)} 30%{opacity:1} 70%{opacity:1} 100%{opacity:0;transform:rotate(45deg) translate(9px,9px)} }
+
+  /* появление при скролле + постоянная мягкая подсветка */
+  .reveal { opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+  @keyframes glowPulse {
+    0%,100% { box-shadow:0 6px 24px rgba(30,50,120,.06); border-color:#e7ebf5; }
+    50% { box-shadow:0 0 0 4px rgba(108,140,255,.30), 0 12px 40px rgba(91,108,255,.40); border-color:#6c8cff; }
+  }
+  .stagger.visible > * { animation:fadeUp .7s cubic-bezier(.2,.7,.3,1) backwards, glowPulse 5s ease-in-out infinite; }
+  .stagger.visible > *:nth-child(1){animation-delay:.05s,.2s}
+  .stagger.visible > *:nth-child(2){animation-delay:.13s,.9s}
+  .stagger.visible > *:nth-child(3){animation-delay:.21s,1.6s}
+  .stagger.visible > *:nth-child(4){animation-delay:.29s,2.3s}
+  .stagger.visible > *:nth-child(5){animation-delay:.37s,3s}
+  .stagger.visible > *:nth-child(6){animation-delay:.45s,3.7s}
+  .stagger.visible > *:nth-child(7){animation-delay:.53s,4.4s}
+  .stagger.visible > *:nth-child(8){animation-delay:.61s,5.1s}
+
+  .marquee { overflow:hidden; padding:16px 0; border-top:1px solid #e7ebf5; border-bottom:1px solid #e7ebf5; background:rgba(255,255,255,.65); }
+  .marquee-track { display:flex; width:max-content; animation:marquee 28s linear infinite; }
+  .marquee-track:hover { animation-play-state:paused; }
+  .marquee span { padding:0 26px; color:#7a86b0; font-weight:600; letter-spacing:.06em; white-space:nowrap; }
+  @keyframes marquee { to{transform:translateX(-50%)} }
+
+  .center { text-align:center; }
+  .center .section-sub { margin-left:auto; margin-right:auto; }
+  .buttons { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+  /* ===== БЛОК «ПРОБЛЕМЫ» ===== */
+  .problem-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; margin-top:30px; }
+  .problem-card { background:#fff; border:1px solid #e7ebf5; border-radius:18px; padding:28px 24px; box-shadow:0 6px 24px rgba(30,50,120,.06); transition:transform .35s; text-align:left; }
+  .problem-card:hover { transform:translateY(-6px); }
+  .problem-card .icon { font-size:34px; display:inline-block; margin-bottom:12px; }
+  .problem-card h3 { margin-bottom:8px; font-size:19px; }
+  .problem-card p { color:#5a6180; font-size:15px; }
+
+  /* ===== БЛОК «ВОЗМОЖНОСТИ» ===== */
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+  .card { background:#fff; border:1px solid #e7ebf5; border-radius:16px; padding:24px; box-shadow:0 6px 24px rgba(30,50,120,.06); transition:transform .35s ease; text-align:left; }
+  .card:hover { transform:translateY(-8px); }
+  .card .emoji { font-size:30px; display:inline-block; margin-bottom:12px; transition:transform .35s; }
+  .card:hover .emoji { transform:scale(1.18) rotate(-8deg); }
+  .card h3 { margin-bottom:10px; font-size:18px; }
+  .card p { color:#5a6180; font-size:15px; }
+  .card ul { color:#5a6180; font-size:14px; padding-left:18px; margin-top:8px; }
+  .card ul li { margin-bottom:5px; }
+
+  /* ===== ИСТОЧНИКИ (в одну линию) ===== */
+  .sources-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:30px; }
+  .source-card { background:#fff; border:1px solid #e7ebf5; border-radius:16px; padding:28px 24px; text-align:left; box-shadow:0 6px 24px rgba(30,50,120,.06); transition:transform .35s; }
+  .source-card:hover { transform:translateY(-6px); }
+  .source-card .logo { font-size:22px; font-weight:800; color:#5b6cff; margin-bottom:6px; }
+  .source-card .tag { display:inline-block; font-size:12px; font-weight:700; color:#7a3ff0; background:#f1e9ff; border-radius:999px; padding:3px 12px; margin-bottom:12px; letter-spacing:.04em; }
+  .source-card h3 { font-size:18px; margin-bottom:8px; }
+  .source-card p { color:#5a6180; font-size:14px; line-height:1.55; }
+
+  /* ===== БЛОК «ОБНОВЛЕНИЯ» ===== */
+  .update-banner { background:linear-gradient(135deg,#eef2ff,#f7edff); border:1px solid #dfe6ff; border-radius:20px; padding:34px 30px; margin-top:40px; text-align:left; display:flex; gap:24px; align-items:center; flex-wrap:wrap; box-shadow:0 12px 40px rgba(30,50,120,.08); animation:ctaPulse 6s ease-in-out infinite; }
+  .update-banner .icon-big { font-size:56px; line-height:1; }
+  .update-banner h3 { font-size:22px; margin-bottom:10px; }
+  .update-banner p { color:#4a5270; font-size:15px; margin-bottom:8px; }
+  .update-banner ul { margin:8px 0 0; padding-left:18px; color:#4a5270; font-size:15px; }
+  .update-banner ul li { margin-bottom:5px; }
+  .update-banner .grow { flex:1; min-width:260px; }
+
+  /* ===== ТАРИФЫ ===== */
+  .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; margin-top:30px; align-items:stretch; }
+  .pricing-card { background:#fff; border:1px solid #e7ebf5; border-radius:20px; padding:32px 26px; box-shadow:0 8px 28px rgba(30,50,120,.07); display:flex; flex-direction:column; transition:transform .35s; }
+  .pricing-card:hover { transform:translateY(-6px); }
+  .pricing-card.premium { border:2px solid #6c8cff; box-shadow:0 12px 40px rgba(91,108,255,.20); position:relative; }
+  .pricing-card.premium::before { content:"ХИТ"; position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:linear-gradient(90deg,#6c8cff,#a06bff); color:#fff; font-size:12px; font-weight:700; letter-spacing:.08em; padding:5px 16px; border-radius:999px; }
+  .pricing-card h3 { font-size:22px; margin-bottom:6px; }
+  .pricing-card .price { font-size:34px; font-weight:800; color:#5b6cff; margin:10px 0 4px; }
+  .pricing-card .price span { font-size:16px; font-weight:500; color:#7a819c; }
+  .pricing-card .price-sub { color:#7a819c; font-size:14px; margin-bottom:20px; }
+  .pricing-card ul { list-style:none; padding:0; margin:0 0 24px; flex:1; }
+  .pricing-card ul li { padding:9px 0 9px 28px; position:relative; color:#3a4260; font-size:15px; }
+  .pricing-card ul li::before { content:"✓"; color:#5b6cff; font-weight:700; position:absolute; left:0; top:9px; font-size:16px; }
+  .pricing-card ul li.no::before { content:"—"; color:#b0b6cc; }
+  .pricing-card ul li.no { color:#9aa0b8; }
+
+  /* ===== ШАГИ ===== */
+  .step .step-num { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#6c8cff,#a06bff); display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; margin-bottom:14px; transition:transform .6s; }
+  .step:hover .step-num { transform:rotate(360deg) scale(1.1); }
+
+  /* ===== FAQ ===== */
+  details { background:#fff; border:1px solid #e7ebf5; border-radius:14px; padding:18px 22px; margin-bottom:12px; box-shadow:0 4px 16px rgba(30,50,120,.05); transition:transform .3s; animation:glowPulse 5s ease-in-out infinite; }
+  details:nth-of-type(2){animation-delay:.8s}
+  details:nth-of-type(3){animation-delay:1.6s}
+  details:nth-of-type(4){animation-delay:2.4s}
+  details:nth-of-type(5){animation-delay:3.2s}
+  details:nth-of-type(6){animation-delay:4s}
+  details:hover { transform:translateY(-3px); }
+  summary { cursor:pointer; font-weight:600; list-style:none; display:flex; justify-content:space-between; gap:14px; color:#1b2350; }
+  summary::-webkit-details-marker{display:none}
+  summary::after { content:"+"; font-size:22px; color:#5b6cff; transition:transform .3s; }
+  details[open] summary::after { content:"–"; transform:rotate(360deg); }
+  details p { margin-top:12px; color:#5a6180; }
+
+  /* ===== CTA ===== */
+  .cta-card { text-align:center; padding:60px 30px; background:linear-gradient(135deg,#eef2ff,#f7edff); border:1px solid #dfe6ff; border-radius:24px; box-shadow:0 20px 60px rgba(30,50,120,.10); animation:ctaPulse 5s ease-in-out infinite; }
+  @keyframes ctaPulse {
+    0%,100% { box-shadow:0 20px 60px rgba(30,50,120,.10); }
+    50% { box-shadow:0 0 0 5px rgba(108,140,255,.25), 0 26px 90px rgba(91,108,255,.40); }
+  }
+  .cta-card p { max-width:640px; margin:0 auto 30px; color:#5a6180; }
+
+  /* ===== ВИДИМЫЙ СВЕТ ПРИ НАВЕДЕНИИ ===== */
+  .card, .problem-card, .source-card, .pricing-card, details, .step, .cta-card, .update-banner { position:relative; overflow:hidden; }
+  .card::before, .problem-card::before, .source-card::before, .pricing-card::before, details::before, .step::before, .cta-card::before, .update-banner::before {
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .35s;
+    border:2px solid rgba(108,140,255,.9);
+    box-shadow:inset 0 0 30px rgba(91,108,255,.45);
+  }
+  .card::after, .problem-card::after, .source-card::after, .pricing-card::after, details::after, .step::after, .cta-card::after, .update-banner::after {
+    content:""; position:absolute; top:0; left:-80%; width:60%; height:100%; pointer-events:none;
+    background:linear-gradient(105deg,transparent,rgba(140,170,255,.25),rgba(255,255,255,.5),transparent);
+    transform:skewX(-20deg); transition:left .8s ease;
+  }
+  .card:hover::before, .problem-card:hover::before, .source-card:hover::before, .pricing-card:hover::before, details:hover::before, .step:hover::before, .cta-card:hover::before, .update-banner:hover::before { opacity:1; animation:ringPulse 1.2s ease-in-out infinite; }
+  .card:hover::after, .problem-card:hover::after, .source-card:hover::after, .pricing-card:hover::after, details:hover::after, .step:hover::after, .cta-card:hover::after, .update-banner:hover::after { left:130%; }
+  @keyframes ringPulse {
+    0%,100% { box-shadow:inset 0 0 22px rgba(91,108,255,.35); border-color:rgba(108,140,255,.9); }
+    50% { box-shadow:inset 0 0 46px rgba(91,108,255,.75); border-color:rgba(143,176,255,1); }
+  }
+
+  footer { padding:34px 0; border-top:1px solid #e7ebf5; color:#7a819c; font-size:14px; text-align:center; background:rgba(255,255,255,.6); }
+
+  /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+  @media (max-width: 900px) {
+    .sources-grid { grid-template-columns:1fr; }
+  }
+  @media (max-width: 600px) {
+    .container { padding:0 16px; }
+    section { padding: 50px 0; }
+    .hero { padding: 100px 0 60px; min-height: 90vh; }
+    .hero h1 { font-size: clamp(26px, 7.6vw, 36px); }
+    .hero-sub { font-size: 16px; }
+    .badge { font-size: 12px; padding: 6px 12px; }
+    .btn { padding: 12px 20px; font-size: 15px; width: 100%; text-align: center; }
+    .btn-small { padding: 8px 14px; font-size: 13px; width: auto; }
+    .buttons { flex-direction: column; align-items: center; gap: 12px; }
+    .buttons .btn { width: 100%; max-width: 300px; }
+    .menu a:not(.btn) { display: none; }
+    .nav-inner { height: 56px; }
+    .logo { font-size: 18px; }
+    .hero-fade { height: 80px; }
+    .hero-arrow { top: -28px; }
+    .hero-arrow span { width: 12px; height: 12px; border-width: 2px; }
+    .grid-3, .grid-4, .grid-2, .problem-grid, .sources-grid, .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
+    .card, .problem-card, .pricing-card, .source-card { padding: 20px; }
+    .update-banner { padding: 24px 20px; gap: 16px; }
+    .update-banner .icon-big { font-size: 42px; }
+    .step .step-num { width: 34px; height: 34px; font-size: 14px; }
+    details { padding: 14px 16px; }
+    summary { font-size: 15px; }
+    .cta-card { padding: 32px 20px; border-radius: 18px; }
+    .marquee span { padding: 0 14px; font-size: 13px; }
+    .marquee { padding: 12px 0; }
+    .blob { display: none; }
+  }
+  @media (max-width: 400px) {
+    .hero h1 { font-size: clamp(22px, 6.8vw, 28px); }
+    .section-sub { font-size: 15px; }
+  }
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} .reveal,.anim{opacity:1!important;transform:none!important} }
+</style>
+</head>
+<body>
+
+<!-- ===== НАВИГАЦИЯ ===== -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html">O.Martynenko.pro</a>
+    <nav class="menu">
+      <a href="index.html">Главная</a>
+      <a href="cai.html">Проект CAI</a>
+      <a href="#features">Возможности</a>
+      <a href="#sources">Источники</a>
+      <a href="#pricing">Тарифы</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-small" href="#cta">Открыть бота</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <img class="hero-bg" src="bot-hero.jpg" alt="">
+  <div class="hero-overlay"></div>
+  <div class="spark" aria-hidden="true"></div>
+  <div class="particles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="container hero-content">
+    <span class="badge">Telegram-бот · бесплатно</span>
+    <h1>ИИ-ассистент-бот для поиска работы</h1>
+    <p class="hero-sub">Находит вакансии, считает Match Score, пишет сопроводительные письма и напоминает о дедлайнах. Всё в одном Telegram-боте — без приложений и подписок. Базы вакансий и сам бот постоянно обновляются.</p>
+    <div class="buttons">
+      <a class="btn" href="https://t.me/vacancyassistant_bot" target="_blank" rel="noopener">Открыть бота →</a>
+      <a class="btn btn-secondary" href="#features">Что умеет</a>
+    </div>
+  </div>
+</section>
+
+<div class="hero-fade">
+  <a class="hero-arrow" href="#problems" aria-label="Перейти к блоку"><span></span><span></span><span></span></a>
+</div>
+
+<!-- ===== ПРОБЛЕМЫ ===== -->
+<section class="center" id="problems">
+  <div class="blob" style="width:340px;height:340px;background:#dbe6ff;top:-80px;left:-100px;"></div>
+  <div class="container">
+    <div class="eyebrow reveal">Знакомая ситуация?</div>
+    <h2 class="reveal">Поиск работы съедает время и силы</h2>
+    <p class="section-sub reveal">Каждый день — десятки вакансий, ручной отбор, письма «в никуда», потерянные дедлайны. На это уходят часы, а результата всё нет.</p>
+    <div class="problem-grid reveal stagger">
+      <div class="problem-card"><span class="icon">🕳️</span><h3>Поиск вслепую</h3><p>Открываете HH.ru, листаете сотни вакансий, тратите часы — а подходящих по навыкам и зарплате единицы.</p></div>
+      <div class="problem-card"><span class="icon">📝</span><h3>Письма «в никуда»</h3><p>Шаблонные сопроводительные письма не цепляют рекрутёра. Слабый отклик — низкий процент ответов.</p></div>
+      <div class="problem-card"><span class="icon">⏰</span><h3>Пропущенные дедлайны</h3><p>Вакансия закрылась вчера, а вы только сегодня вспомнили о ней. Потерянные возможности — норма?</p></div>
+      <div class="problem-card"><span class="icon">🤔</span><h3>Непонятно, подходите ли</h3><p>Требования размыты, а вы не уверены, стоит ли откликаться. Время — впустую.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ВОЗМОЖНОСТИ ===== -->
+<section class="center" id="features">
+  <div class="blob" style="width:380px;height:380px;background:#e3ecff;top:10%;right:-140px;"></div>
+  <div class="container">
+    <div class="eyebrow reveal">Что умеет бот</div>
+    <h2 class="reveal">Полный цикл поиска работы в одном окне</h2>
+    <p class="section-sub reveal">Бот берёт на себя рутину: поиск, отбор, письма, напоминания. Вам остаётся выбирать и откликаться.</p>
+
+    <div class="grid-3 reveal stagger">
+      <div class="card"><span class="emoji">🔍</span><h3>Умный поиск вакансий</h3><p>Собирает предложения из нескольких источников и отсеивает нерелевантные по вашим критериям: город, зарплата, навыки.</p></div>
+      <div class="card"><span class="emoji">🎯</span><h3>Match Score</h3><p>Оценивает, насколько вакансия подходит вашему профилю. Показывает сильные стороны, пробелы и честный вердикт — 🟢🟡🔴.</p></div>
+      <div class="card"><span class="emoji">🕵️</span><h3>«Честный рекрутер»</h3><p>Разбирает вакансию, подсвечивает риски и красные флаги: завышенные требования, размытые обязанности, тревожные звоночки.</p></div>
+      <div class="card"><span class="emoji">✍️</span><h3>Cover-письма</h3><p>Генерирует персонализированное сопроводительное письмо под конкретную вакансию и ваш профиль. Не шаблон — а осмысленный текст.</p></div>
+      <div class="card"><span class="emoji">📬</span><h3>Ежедневная рассылка</h3><p>Каждый день в 9:00 присылает топ-5 свежих вакансий (PREMIUM — до 10). Режимы: только показать, отправить автоматически или запросить подтверждение.</p></div>
+      <div class="card"><span class="emoji">🔔</span><h3>Задачи и напоминания</h3><p>Ставьте задачи с датой и временем — бот напомнит. Не пропустите дедлайн отклика или собеседования.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ИСТОЧНИКИ ===== -->
+<section class="center" id="sources">
+  <div class="blob" style="width:320px;height:320px;background:#f0e6ff;top:-60px;left:-110px;"></div>
+  <div class="container">
+    <div class="eyebrow reveal">Источники вакансий</div>
+    <h2 class="reveal">Работаем с ведущими базами вакансий</h2>
+    <p class="section-sub reveal">Чем больше источников — тем выше шанс найти подходящую вакансию. Бот объединяет несколько площадок в одном поиске и автоматически переключается между ними, если одна из них недоступна.</p>
+    <div class="sources-grid reveal stagger">
+      <div class="source-card">
+        <div class="logo">HH.ru</div>
+        <span class="tag">Крупнейшая база в России</span>
+        <h3>HeadHunter</h3>
+        <p>Самая большая база вакансий в России и СНГ. Тысячи новых предложений ежедневно: от junior-позиций до топ-менеджмента. Бот ищет по API и через сайт — даже если API временно недоступен.</p>
+      </div>
+      <div class="source-card">
+        <div class="logo">GeekJob</div>
+        <span class="tag">IT и удалёнка</span>
+        <h3>GeekJob</h3>
+        <p>Специализированная площадка для IT-специалистов и удалённой работы. Вакансии от технологических компаний, стартапов и продуктовых команд. Отличный источник для разработчиков, тестировщиков, аналитиков и дизайнеров.</p>
+      </div>
+      <div class="source-card">
+        <div class="logo">Trudvsem</div>
+        <span class="tag">Государственный портал</span>
+        <h3>«Работа России»</h3>
+        <p>Официальный государственный портал с вакансиями по всей стране. Особенно полезен для поиска в регионах, а также для позиций в бюджетной сфере, промышленности и на производстве.</p>
+      </div>
+    </div>
+
+    <!-- ===== БЛОК ПРО ОБНОВЛЕНИЯ ===== -->
+    <div class="update-banner reveal">
+      <div class="icon-big">🔄</div>
+      <div class="grow">
+        <h3>Базы и бот постоянно обновляются</h3>
+        <p>Мы не стоим на месте — бот развивается вместе с вашими задачами.</p>
+        <ul>
+          <li><b>Базы вакансий обновляются</b> — бот регулярно проверяет источники и подтягивает свежие предложения.</li>
+          <li><b>Новые источники</b> — постепенно подключаем дополнительные площадки, чтобы охват был ещё шире.</li>
+          <li><b>Новые функции</b> — бот получает обновления с новыми командами, улучшениями Match Score и cover-писем.</li>
+          <li><b>Пользователи узнают об обновлениях</b> — при запуске новой версии бот сам сообщает, что нового появилось.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ТАРИФЫ ===== -->
+<section class="center" id="pricing">
+  <div class="blob" style="width:340px;height:340px;background:#e0f2ec;bottom:-100px;right:-120px;"></div>
+  <div class="container">
+    <div class="eyebrow reveal">Тарифы</div>
+    <h2 class="reveal">Начните бесплатно. Расширьте, когда захотите</h2>
+    <p class="section-sub reveal">Базовый функционал — бесплатно и без ограничений по времени. PREMIUM добавляет больше вакансий и приоритетную обработку.</p>
+    <div class="pricing-grid reveal stagger">
+      <div class="pricing-card">
+        <h3>Бесплатно</h3>
+        <div class="price">0 ₽</div>
+        <div class="price-sub">Навсегда</div>
+        <ul>
+          <li>Поиск вакансий из нескольких источников</li>
+          <li>Match Score — 10 в день</li>
+          <li>Cover-письма — 5 в день</li>
+          <li>Ежедневная рассылка — до 5 вакансий в 9:00</li>
+          <li>Задачи и напоминания</li>
+          <li>Статистика по откликам</li>
+        </ul>
+        <a class="btn" href="https://t.me/vacancyassistant_bot" target="_blank" rel="noopener">Открыть бота</a>
+      </div>
+      <div class="pricing-card premium">
+        <h3>PREMIUM</h3>
+        <div class="price">29 ⭐</div>
+        <div class="price-sub">30 дней · Telegram Stars</div>
+        <ul>
+          <li>Всё из бесплатного тарифа</li>
+          <li>Снятие дневных лимитов</li>
+          <li>Ежедневно до 10 вакансий (вместо 5)</li>
+          <li>Команда /more — ещё 5 свежих вакансий по запросу</li>
+          <li>Недельный дайджест по воскресеньям</li>
+          <li>Приоритетная обработка запросов</li>
+        </ul>
+        <a class="btn" href="https://t.me/vacancyassistant_bot" target="_blank" rel="noopener">Оформить PREMIUM</a>
+      </div>
+      <div class="pricing-card">
+        <h3>Разовые услуги</h3>
+        <div class="price">3–5 ⭐</div>
+        <div class="price-sub">Telegram Stars</div>
+        <ul>
+          <li>📄 Резюме PRO — 5 ⭐</li>
+          <li>🧭 Карьерный план на 30 дней — 3 ⭐</li>
+          <li>Персональная генерация под ваш профиль</li>
+          <li>Файл приходит прямо в Telegram</li>
+          <li>Можно заказать без PREMIUM</li>
+        </ul>
+        <a class="btn btn-secondary" href="https://t.me/vacancyassistant_bot" target="_blank" rel="noopener">Посмотреть услуги</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== КАК НАЧАТЬ ===== -->
+<section class="center" id="how">
+  <div class="container">
+    <div class="eyebrow reveal">Как начать</div>
+    <h2 class="reveal">Первый результат — за 3 шага</h2>
+    <p class="section-sub reveal">Регистрация не нужна. Просто откройте бота и заполните профиль — дальше он всё сделает сам.</p>
+    <div class="grid-4 reveal stagger">
+      <div class="card step"><div class="step-num">1</div><h3>Откройте бота</h3><p>Нажмите кнопку и запустите бота в Telegram. Он сразу покажет, что умеет.</p></div>
+      <div class="card step"><div class="step-num">2</div><h3>Заполните профиль</h3><p>Команда /profile: город, навыки, опыт, ожидаемая зарплата. Чем подробнее — тем точнее вакансии.</p></div>
+      <div class="card step"><div class="step-num">3</div><h3>Подпишитесь на рассылку</h3><p>Команда /subscribe — выберите режим и получайте свежие вакансии каждый день в 9:00.</p></div>
+      <div class="card step"><div class="step-num">4</div><h3>Пользуйтесь Match Score</h3><p>Команда /match — оцените вакансию до отклика. Команда /cover — готовое письмо.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="center" id="faq">
+  <div class="container" style="max-width:860px;">
+    <div class="eyebrow reveal">Частые вопросы</div>
+    <h2 class="reveal">Коротко о главном</h2>
+    <br>
+    <details><summary>Бот действительно бесплатный?</summary><p>Да. Базовый функционал — поиск вакансий, Match Score (до 10 в день), cover-письма (до 5 в день), ежедневная рассылка (до 5 вакансий) и напоминания — бесплатны. Платные опции (PREMIUM, Резюме PRO, Карьерный план) — по желанию, оплата в Telegram Stars.</p></details>
+    <details><summary>Нужно ли что-то устанавливать?</summary><p>Нет. Бот работает в Telegram — откройте ссылку и нажмите «Start». Никаких приложений, регистраций и личных кабинетов.</p></details>
+    <details><summary>Откуда бот берёт вакансии?</summary><p>Из нескольких источников: HH.ru (API и сайт), GeekJob (IT-вакансии) и Trudvsem (государственный портал «Работа России»). Если какой-то источник недоступен — бот переключается на следующий, чтобы вы всё равно получили результат. Базы обновляются регулярно.</p></details>
+    <details><summary>Бот обновляется?</summary><p>Да. Мы постоянно работаем над ботом: подключаем новые источники вакансий, улучшаем Match Score и cover-письма, добавляем новые функции. Когда выходит обновление — бот сам сообщает об этом пользователям.</p></details>
+    <details><summary>Что такое Match Score?</summary><p>Это оценка соответствия вакансии вашему профилю. Бот анализирует требования, ваши навыки, опыт и ожидания по зарплате — и выдаёт оценку от 0 до 100, а также список сильных сторон и пробелов.</p></details>
+    <details><summary>Как оплатить PREMIUM?</summary><p>Через Telegram Stars — встроенная валюта Telegram. Никаких карт и внешних платёжных систем. Откройте /premium в боте и выберите тариф.</p></details>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="center" id="cta">
+  <div class="container">
+    <div class="cta-card reveal">
+      <h2>Готовы найти работу быстрее?</h2>
+      <p>Откройте бота в Telegram — он бесплатный и сразу готов к работе. Заполните профиль за 2 минуты и получайте свежие вакансии каждый день.</p>
+      <a class="btn" href="https://t.me/vacancyassistant_bot" target="_blank" rel="noopener">Открыть бота в Telegram →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <a href="index.html" style="color:#5b6cff; text-decoration:none; margin:0 6px;">Главная</a> ·
+    <a href="cai.html" style="color:#5b6cff; text-decoration:none; margin:0 6px;">Проект CAI</a> ·
+    <a href="bot.html" style="color:#5b6cff; text-decoration:none; margin:0 6px;">Бот для поиска работы</a>
+    <br><br>
+    © 2026 O.Martynenko.pro — Цифровые решения для бизнеса. Все права защищены.</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', scrollY > innerHeight * .7);
+  });
+</script>
+
+</body>
+</html>
