@@ -223,6 +223,21 @@
     50% { box-shadow:inset 0 0 46px rgba(91,108,255,.75); border-color:rgba(143,176,255,1); }
   }
 
+  /* ===== PREMIUM — золотое оформление (перекрывает сиреневый glow) ===== */
+  .pricing-card.premium { border:2px solid #d9b64e; background:linear-gradient(165deg,#fffff8 0%,#fff7e0 60%,#fffbe6 100%); box-shadow:0 14px 42px rgba(212,168,44,.22); }
+  .pricing-card.premium:hover { box-shadow:0 20px 55px rgba(212,168,44,.35); }
+  .pricing-card.premium::before { content:"ХИТ"; position:absolute; top:-4px; left:50%; right:auto; bottom:auto; transform:translateX(-50%); background:linear-gradient(90deg,#f4d873,#c9a227); color:#433000; font-size:11px; font-weight:800; letter-spacing:.08em; padding:4px 12px; border-radius:8px; box-shadow:0 3px 10px rgba(202,165,42,.4); }
+  .pricing-card.premium .price { color:#c9a227; }
+  .pricing-card.premium ul li::before { color:#c9a227; }
+  .pricing-card.premium .btn { background:linear-gradient(90deg,#f2cd4d,#d4a72c); color:#3d2d00; }
+  .pricing-card.premium .btn:hover { box-shadow:0 14px 30px rgba(212,168,44,.42); }
+  .pricing-card.premium::after { background:linear-gradient(105deg,transparent,rgba(255,213,102,.4),rgba(255,252,235,.8),transparent); }
+  .pricing-card.premium:hover::before { opacity:1; border:2px solid rgba(224,184,66,.95); box-shadow:inset 0 0 26px rgba(224,184,66,.40); animation:goldRingPulse 1.3s ease-in-out infinite; }
+  @keyframes goldRingPulse {
+    0%,100% { box-shadow:inset 0 0 20px rgba(212,168,44,.30); border-color:rgba(224,184,66,.90); }
+    50% { box-shadow:inset 0 0 48px rgba(224,184,66,.75); border-color:rgba(255,215,104,1); }
+  }
+
   footer { padding:34px 0; border-top:1px solid #e7ebf5; color:#7a819c; font-size:14px; text-align:center; background:rgba(255,255,255,.6); }
 
   /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
@@ -316,6 +331,8 @@
       <div class="problem-card"><span class="icon">📝</span><h3>Письма «в никуда»</h3><p>Шаблонные сопроводительные письма не цепляют рекрутёра. Слабый отклик — низкий процент ответов.</p></div>
       <div class="problem-card"><span class="icon">⏰</span><h3>Пропущенные дедлайны</h3><p>Вакансия закрылась вчера, а вы только сегодня вспомнили о ней. Потерянные возможности — норма?</p></div>
       <div class="problem-card"><span class="icon">🤔</span><h3>Непонятно, подходите ли</h3><p>Требования размыты, а вы не уверены, стоит ли откликаться. Время — впустую.</p></div>
+      <div class="problem-card"><span class="icon">🗂️</span><h3>Разрозненные источники</h3><p>Вакансии разбросаны по нескольким площадкам, и они обновляются в разное время. Пока вы проверяете одну базу, свежие предложения на другой уже уходят первыми.</p></div>
+      <div class="problem-card"><span class="icon">📊</span><h3>Отклики без учёта</h3><p>Нет единой картины: куда вы уже откликнулись, кто ответил, какие дедлайны близко. Отслеживание вручную — лишние часы и потерянные возможности.</p></div>
     </div>
   </div>
 </section>
@@ -431,7 +448,7 @@
           <li>Файл приходит прямо в Telegram</li>
           <li>Можно заказать без PREMIUM</li>
         </ul>
-        <a class="btn btn-secondary" href="https://t.me/vacancyassistant_bot" target="_blank" rel="noopener">Посмотреть услуги</a>
+        <a class="btn" href="https://t.me/vacancyassistant_bot" target="_blank" rel="noopener">Посмотреть услуги</a>
       </div>
     </div>
   </div>

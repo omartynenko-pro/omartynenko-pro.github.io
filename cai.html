@@ -174,6 +174,12 @@
   .step .step-num { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#6c8cff,#a06bff); display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; margin-bottom:14px; transition:transform .6s; }
   .step:hover .step-num { transform:rotate(360deg) scale(1.1); }
   .step .days { display:inline-block; margin-bottom:10px; padding:4px 12px; border-radius:999px; background:#e8eeff; color:#3556d8; font-size:13px; font-weight:700; }
+  .step-wide { grid-column:1/-1; display:flex; align-items:center; gap:28px; text-align:left; padding:34px 30px; }
+  .step-wide .step-meta { display:flex; align-items:center; gap:14px; min-width:200px; }
+  .step-wide .step-num { margin-bottom:0; }
+  .step-wide .days { margin-bottom:0; }
+  .step-wide h3 { margin-bottom:8px; }
+  .step-wide p { color:#5a6180; font-size:15px; margin:0; max-width:560px; }
 
   details { background:#fff; border:1px solid #e7ebf5; border-radius:14px; padding:18px 22px; margin-bottom:12px; box-shadow:0 4px 16px rgba(30,50,120,.05); transition:transform .3s; animation:glowPulse 5s ease-in-out infinite; }
   details:nth-of-type(2){animation-delay:.8s}
@@ -443,7 +449,7 @@
       <div class="card step"><div class="step-num">2</div><span class="days">10–14 дней</span><h3>Проектирование схемы</h3><p>Проектируем маршруты документов, правила автоматизации и интеграции. Согласовываем с вами до начала настройки.</p></div>
       <div class="card step"><div class="step-num">3</div><span class="days">25–30 дней</span><h3>Настройка и интеграция</h3><p>Настраиваем систему: правила классификации, маршруты согласования, интеграции с почтой, 1С, CRM и другими инструментами компании.</p></div>
       <div class="card step"><div class="step-num">4</div><span class="days">10–14 дней</span><h3>Обучение команды</h3><p>Ассистент и ключевые сотрудники проходят практическое обучение. Видеоинструкции остаются для новых людей.</p></div>
-      <div class="card step"><div class="step-num">5</div><span class="days">30 дней</span><h3>Поддержка и доработка</h3><p>Первый месяц — на связи. Дорабатываем правила, если процессы меняются, отвечаем на вопросы команды.</p></div>
+      <div class="card step step-wide"><div class="step-meta"><div class="step-num">5</div><span class="days">30 дней</span></div><div><h3>Сопровождение и доработка</h3><p>В течение первого месяца после внедрения обеспечиваем техническую поддержку и оперативную доработку логики: адаптируем правила автоматизации под изменяющиеся бизнес-процессы, корректируем маршруты и отвечаем на вопросы команды. Гарантируем стабильную работу ассистента в переходный период.</p></div></div>
     </div>
   </div>
 </section>
