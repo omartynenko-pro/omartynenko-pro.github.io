@@ -37,7 +37,7 @@
     top: 0; 
     left: 0; 
     width: 100%; 
-    height: 100vh; 
+    height: 100%; 
     z-index: 0; 
     pointer-events: none; 
     opacity: 0.9; 
@@ -298,6 +298,52 @@
   .special-block p { text-align:left; color:#2a3355; }
   .special-badge { background:rgba(255,255,255,.8); padding:10px 20px; border-radius:10px; font-weight:700; color:#2a3355; border:1px solid #c9d0ff; display:inline-block; margin-bottom:15px; }
 
+  /* ===== ИНТРО-БЛОК «ОБО МНЕ» (текст в первом экране) ===== */
+  .intro { text-align:left; max-width:880px; margin:0 auto; display:flex; flex-direction:column; gap:20px; }
+  .intro > * { opacity:0; animation:introIn .85s cubic-bezier(.2,.7,.3,1) forwards; }
+  .intro > *:nth-child(1){animation-delay:.35s}
+  .intro > *:nth-child(2){animation-delay:.50s}
+  .intro > *:nth-child(3){animation-delay:.65s}
+  .intro > *:nth-child(4){animation-delay:.80s}
+  .intro > *:nth-child(5){animation-delay:.95s}
+  .intro > *:nth-child(6){animation-delay:1.10s}
+  .intro > *:nth-child(7){animation-delay:1.25s}
+  .intro > *:nth-child(8){animation-delay:1.40s}
+  @keyframes introIn { from{opacity:0; transform:translateY(24px)} to{opacity:1; transform:none} }
+
+  .intro-lead { text-align:center; max-width:840px; margin:0 auto; font-size:18.5px; line-height:1.75; color:#2a3355; padding:0 4px; }
+  .intro-lead .name { font-size:1.18em; font-weight:800; color:#3b2a7a; letter-spacing:.01em; }
+  .intro-lead .role { font-weight:700; color:#5b6cff; }
+  .intro-lead .sentence { display:block; margin-bottom:14px; }
+  @media (min-width: 900px) { .intro-lead .sentence { white-space:nowrap; } }
+  .intro-card { position:relative; overflow:hidden; background:rgba(255,255,255,.82); border:1px solid #dfe6ff; border-left:4px solid #7a3ff0; border-radius:16px; padding:24px 28px; text-align:left; box-shadow:0 8px 26px rgba(30,50,120,.07); transition:transform .3s, box-shadow .3s, border-color .3s; }
+  .intro-card:hover { transform:translateY(-5px); box-shadow:0 18px 44px rgba(91,108,255,.22); border-color:#6c8cff; border-left-color:#6c8cff; }
+  .intro-card::after { content:""; position:absolute; top:0; left:-80%; width:55%; height:100%; pointer-events:none; background:linear-gradient(105deg,transparent,rgba(160,180,255,.30),transparent); transform:skewX(-20deg); transition:left .8s ease; }
+  .intro-card:hover::after { left:130%; }
+  .intro-card h3 { text-align:left; font-size:20px; margin-bottom:12px; color:#3b2a7a; }
+  .intro-card h3 .ico { margin-right:8px; }
+  .intro-card p { text-align:left; color:#2a3355; font-size:15.5px; line-height:1.68; }
+
+  .intro-mission { text-align:center; background:linear-gradient(140deg,rgba(255,255,255,.96),rgba(243,238,255,.95)); border-left-color:#5b6cff; }
+  .mission-title { font-size:clamp(19px,2.3vw,26px); font-weight:800; line-height:1.3; margin-bottom:12px; color:#3b2a7a; }
+  .mission-title span { background:linear-gradient(90deg,#5b6cff,#a06bff,#1a73e8,#5b6cff); background-size:300% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; animation:gradFlow 9s linear infinite; }
+  @keyframes gradFlow { 0%{background-position:0% 50%} 100%{background-position:300% 50%} }
+
+  .intro-list { list-style:none; margin:0; padding:0; display:grid; gap:12px; }
+  .intro-list li { position:relative; padding-left:30px; font-size:15.5px; line-height:1.62; color:#2a3355; }
+  .intro-list li::before { content:"◆"; position:absolute; left:2px; top:1px; color:#a06bff; font-size:11px; }
+  .intro-list li b { color:#3b2a7a; }
+  .intro-list li::marker { color:#a06bff; }
+
+  .intro-note { margin-top:16px; padding-top:14px; border-top:1px dashed #c9cde0; font-size:14.5px; line-height:1.6; color:#6a7192; font-style:italic; }
+  .intro-note::before { content:"… "; }
+
+  .intro-tools { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .intro-tools span { padding:6px 13px; border-radius:999px; background:#fff; border:1px solid #d9e0ff; color:#3b2a7a; font-size:13.5px; font-weight:600; transition:transform .3s, box-shadow .3s, background .3s, color .3s; cursor:default; }
+  .intro-tools span:hover { transform:translateY(-3px) scale(1.04); background:linear-gradient(135deg,#6c8cff,#a06bff); color:#fff; border-color:transparent; box-shadow:0 10px 22px rgba(91,108,255,.35); }
+
+  .intro-cta { text-align:center; font-size:clamp(18px,2.2vw,24px); font-weight:800; line-height:1.4; color:#3b2a7a; padding:20px 26px; border-radius:18px; background:linear-gradient(135deg,#eef2ff,#f7edff); border:1px solid #d9e0ff; box-shadow:0 12px 34px rgba(91,108,255,.16); }
+
   footer { padding: 50px 0; background:#0b1030; color:#a5abcf; text-align:center; position:relative; z-index:10; }
 
   @media (max-width: 768px) {
@@ -311,6 +357,9 @@
     .hero-arrow { top:0; }
     .hero-arrow span { width:12px; height:12px; border-width:2px; }
     .section-haze, .section-haze-bottom, .section-smooth { height: 120px; }
+    .intro { text-align:left; }
+    .intro-card { padding:20px 20px; }
+    .intro-list li { font-size:15px; padding-left:26px; }
   }
   @media (max-width: 400px) {
     .stats-row { flex-direction: column; }
@@ -348,9 +397,71 @@
   <canvas id="globalCanvas"></canvas>
   <div class="dash-bg"></div>
   <div class="dashboard-content">
-    <span class="badge">Разработка и автоматизация под ключ</span>
-    <h1>Создаю сайты, приложения и автоматизации, которые приносят прибыль</h1>
-    <p class="hero-sub">Я — Ольга Мартыненко. Разрабатываю комплексные цифровые решения для бизнеса: от стильных сайтов и презентаций до внедрения искусственного интеллекта в повседневные процессы. Ваш надежный технический партнер.</p>
+    <span class="badge">Бизнес-ассистент</span>
+    <h1>От рутины — к цифровым процессам под ключ</h1>
+    <div class="intro">
+      <p class="intro-lead"><span class="sentence"><span class="name">Я — Ольга Мартыненко,</span> <span class="role">ваш технический партнёр и эксперт по организационному обеспечению.</span></span> Более 17 лет я работаю помощником первых лиц компаний в строительной, проектной и образовательной сферах. Это не просто стаж — это глубокое погружение в логику принятия решений на высшем уровне, понимание всех «подводных камней» профессии и умение выстраивать работу руководителя так, чтобы ни один процесс не давал сбоя.</p>
+
+      <div class="intro-card intro-mission">
+        <p class="mission-title">Моя миссия — <span>трансформировать рутину в эффективные цифровые процессы</span></p>
+        <p>Я объединяю фундаментальный опыт сопровождения первых лиц с передовыми технологиями, внедряя нетрадиционные подходы в работу помощника руководителя.</p>
+      </div>
+
+      <div class="intro-card">
+        <h3><span class="ico">🎯</span>Мои ключевые компетенции</h3>
+        <ul class="intro-list">
+          <li><b>Работа с первыми лицами:</b> полное организационно-техническое обеспечение деятельности руководителя, планирование рабочего дня, приоритизация задач, конфиденциальность и тактичность на уровне топ-менеджмента.</li>
+          <li><b>Документооборот и право:</b> полное сопровождение (внутреннее и внешнее), разработка локальных нормативных актов, контроль поручений и сроков.</li>
+          <li><b>Организация мероприятий:</b> встречи, совещания, командировки, ведение протоколов, координация подразделений и контрагентов.</li>
+          <li><b>Администрирование и коммуникации:</b> управление офисом, работа с большим объёмом информации, деловая переписка.</li>
+          <li><b>Разработка сайтов:</b> стильные сайты под задачу — от одностраничных лендингов до корпоративных порталов, быстрые и адаптивные, с презентациями и бренд-материалами.</li>
+          <li><b>Приложения и интеграции:</b> веб-приложения, панели управления, интеграции с CRM и 1С, скрипты под конкретные процессы компании.</li>
+          <li><b>Боты и ИИ-ассистенты:</b> Telegram-боты и ИИ-помощники, работающие 24/7: обрабатывают заявки, отвечают клиентам, снимают рутину с команды и контролируют дедлайны.</li>
+          <li><b>Автоматизация процессов:</b> автоматизация документооборота, внутренних коммуникаций и повторяющихся задач — с внедрением ИИ там, где это реально ускоряет работу.</li>
+          <li><b>Цифровой стек:</b> свободное владение профессиональными инструментами —
+            <span class="intro-tools">
+              <span>MS Office (Word, Excel, PowerPoint)</span>
+              <span>Outlook</span>
+              <span>Adobe Acrobat Pro</span>
+              <span>ABBYY FineReader</span>
+              <span>1С:Предприятие</span>
+              <span>1С:Документооборот</span>
+              <span>Pyrus</span>
+              <span>«Матрица»</span>
+              <span>Seadrive</span>
+              <span>Google-таблицы и серверы</span>
+            </span>
+          </li>
+        </ul>
+        <p class="intro-note">Список не полный: компетенций и инструментов заметно больше — набор всегда подбирается под задачи, отрасль и масштаб конкретной компании.</p>
+      </div>
+
+      <div class="intro-card">
+        <h3><span class="ico">🧠</span>Инновации в работе</h3>
+        <p>Как специалист по внедрению систем искусственного интеллекта, я оптимизирую рутинные задачи, ускоряю обработку данных и создаю умные рабочие пространства. Я не просто поддерживаю порядок — я делаю работу системы эффективнее с помощью ИИ.</p>
+      </div>
+
+      <div class="intro-card">
+        <h3><span class="ico">🤝</span>Чем я могу быть полезна</h3>
+        <ul class="intro-list">
+          <li><b>Для бизнеса и заказчиков:</b> разработка стильных сайтов и презентаций, внедрение ИИ в повседневные процессы, настройка документооборота и цифровых рабочих пространств, разовые задачи по организации работы руководителя или офиса.</li>
+          <li><b>Для руководителей и компаний:</b> постоянное сопровождение первого лица, ведение делопроизводства, администрирование офиса, оптимизация внутренних процессов.</li>
+          <li><b>Форматы работы:</b> проектная занятость, постоянное сотрудничество, консультации и аудит текущих процессов.</li>
+        </ul>
+      </div>
+
+      <div class="intro-card">
+        <h3><span class="ico">🏅</span>Почему мне доверяют</h3>
+        <ul class="intro-list">
+          <li><b>17+ лет</b> работы с первыми лицами без права на ошибку.</li>
+          <li>Понимание специфики <b>строительства, проектирования и образования</b>.</li>
+          <li>Конфиденциальность, пунктуальность и системный подход.</li>
+          <li>Сочетание классической школы делопроизводства и современных цифровых инструментов.</li>
+        </ul>
+      </div>
+
+      <p class="intro-cta">Готова обсудить вашу задачу — напишите мне, и я предложу решение.</p>
+    </div>
     <div class="btn-group">
       <a href="cai.html" class="btn" style="padding:15px 30px; font-size:18px;">Посмотреть мой ИИ-агент (CAI)</a>
       <a href="bot.html" class="btn" style="padding:15px 30px; font-size:18px;">Попробовать ИИ-бот для поиска работы</a>
