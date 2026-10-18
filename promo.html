@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>O.Martynenko.pro — Цифровые решения и ИИ</title>
-    <meta name="description" content="Разрабатываю комплексные цифровые решения для бизнеса: сайты, презентации, приложения и внедрение искусственного интеллекта. Ваш надежный технический партнер.">
+    <title>Ольга Мартыненко — бизнес-ассистент и помощник первых лиц | O.Martynenko.pro</title>
+    <meta name="description" content="Ольга Мартыненко — бизнес-ассистент и эксперт по организационному обеспечению. Более 17 лет работаю помощником первых лиц: организация работы руководителя, документооборот, офис, сайты, приложения, боты и внедрение ИИ.">
 
     <!-- ==================== МЕТА-ТЕГИ ДЛЯ ПРЕВЬЮ (ПРОМО) ==================== -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="O.Martynenko.pro — Цифровые решения для бизнеса">
-    <meta property="og:description" content="Разрабатываю комплексные цифровые решения для бизнеса: от стильных сайтов и презентаций до внедрения искусственного интеллекта в повседневные процессы. Ваш надежный технический партнер.">
+    <meta property="og:title" content="Ольга Мартыненко — бизнес-ассистент и помощник первых лиц">
+    <meta property="og:description" content="17+ лет рядом с первыми лицами: организация работы руководителя, документооборот, администрирование офиса, разработка сайтов, приложений и ботов, внедрение ИИ в процессы.">
     <meta property="og:image" content="https://omartynenko-pro.github.io/og-image.jpg">
     <meta property="og:url" content="https://omartynenko-pro.github.io/promo.html">
     <meta property="og:site_name" content="O.Martynenko.pro">
 
     <!-- Для Telegram / Viber / WhatsApp -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="O.Martynenko.pro — Цифровые решения для бизнеса">
-    <meta name="twitter:description" content="Разрабатываю комплексные цифровые решения для бизнеса: от стильных сайтов и презентаций до внедрения искусственного интеллекта в повседневные процессы. Ваш надежный технический партнер.">
+    <meta name="twitter:title" content="Ольга Мартыненко — бизнес-ассистент и помощник первых лиц">
+    <meta name="twitter:description" content="17+ лет рядом с первыми лицами: организация работы руководителя, документооборот, администрирование офиса, разработка сайтов, приложений и ботов, внедрение ИИ в процессы.">
     <meta name="twitter:image" content="https://omartynenko-pro.github.io/og-image.jpg">
     <!-- ===================================================================== -->
 
@@ -44,7 +44,7 @@
             box-shadow: 0 20px 60px rgba(30, 50, 120, 0.15);
             text-align: center;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .promo-container:hover {
@@ -74,6 +74,46 @@
             font-weight: 700;
             text-shadow: 0 0 10px rgba(91, 108, 255, 0.2);
             animation: flickerText 3s ease-in-out infinite;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: #fff;
+            border: 1px solid #dfe6ff;
+            color: #5b6cff;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin-bottom: 20px;
+        }
+
+        .name {
+            display: block;
+            font-size: clamp(15px, 2.4vw, 19px);
+            font-weight: 700;
+            color: #5b6cff;
+            margin-bottom: 10px;
+        }
+
+        .facts {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: -20px 0 34px;
+        }
+
+        .facts span {
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #eef2ff, #f6ecff);
+            border: 1px solid #d9e0ff;
+            color: #3b2a7a;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         @keyframes flickerText {
@@ -138,6 +178,45 @@
             box-shadow: 0 0 15px rgba(108, 140, 255, 0.5);
         }
 
+        /* ===== ДРОПДАУН «Написать мне»: выбор — почта или МАКС ===== */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown summary { list-style: none; cursor: pointer; }
+        .dropdown summary::-webkit-details-marker { display: none; }
+        .dropdown-menu {
+            position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
+            background: #fff; border: 1px solid #e4d9ff; border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(30, 50, 120, 0.18);
+            min-width: 240px; padding: 8px; z-index: 1000; text-align: left;
+        }
+        .dropdown-menu a {
+            display: block; padding: 11px 14px; border-radius: 8px;
+            color: #33406b; text-decoration: none; font-size: 15px; font-weight: 500;
+            white-space: nowrap; transition: background .2s, color .2s;
+        }
+        .dropdown-menu a:hover { background: #eef2ff; color: #5b6cff; }
+
+        /* Кнопка в стиле 3D с голубым свечением, пульсацией и бликом */
+        .dropdown summary.btn {
+            background: linear-gradient(180deg, #8a9dff, #5b6cff);
+            box-shadow: 0 4px 0 #3d4bd6, 0 8px 16px rgba(91, 108, 255, 0.35);
+            animation: none;
+            transition: transform .15s, box-shadow .25s, background .25s;
+        }
+        .dropdown summary.btn:hover,
+        .dropdown summary.btn:focus-visible {
+            background: linear-gradient(180deg, #5ec8ff, #2f9bff);
+            color: #fff;
+            text-shadow: 0 0 10px rgba(180, 240, 255, 0.95);
+            animation: contactPulse 1.3s ease-in-out infinite;
+        }
+        .dropdown summary.btn:active { transform: translateY(3px); }
+        .dropdown summary.btn::after { animation: btnShimmer 1.6s linear infinite; }
+        @keyframes btnShimmer { 0% { left: -80%; } 100% { left: 130%; } }
+        @keyframes contactPulse {
+            0%, 100% { box-shadow: 0 4px 0 #1a7ad0, 0 8px 18px rgba(56, 182, 255, 0.5), inset 0 0 12px rgba(190, 240, 255, 0.7); }
+            50% { box-shadow: 0 4px 0 #1a7ad0, 0 10px 30px rgba(56, 182, 255, 0.9), inset 0 0 28px rgba(220, 248, 255, 1); }
+        }
+
         @media (max-width: 600px) {
             .promo-container { padding: 25px; }
             .logo-text { font-size: 22px; }
@@ -158,12 +237,30 @@
         <span class="logo-text">O.Martynenko.pro</span>
     </a>
 
-    <h1>Разрабатываю комплексные цифровые решения для бизнеса</h1>
-    
-    <p>От стильных сайтов и презентаций до внедрения искусственного интеллекта в повседневные процессы. Ваш надежный технический партнер.</p>
-    
+    <span class="badge">Бизнес-ассистент</span>
+
+    <h1>От рутины — к цифровым процессам под ключ</h1>
+
+    <p class="name">Я — Ольга Мартыненко</p>
+
+    <p>Ваш технический партнёр и эксперт по организационному обеспечению. 17+ лет рядом с первыми лицами: организация работы руководителя, документооборот, офис, разработка сайтов, приложений и ботов, внедрение ИИ.</p>
+
+    <div class="facts">
+        <span>Помощник первых лиц</span>
+        <span>Документооборот и право</span>
+        <span>Автоматизации для бизнеса</span>
+        <span>ИИ-ассистенты</span>
+    </div>
+
     <div class="buttons">
-        <a href="index.html" class="btn">Перейти на сайт</a>
+        <details class="dropdown">
+            <summary class="btn">Написать мне</summary>
+            <div class="dropdown-menu">
+                <a href="mailto:olgahome2008@mail.ru?subject=Обсудить задачу">✉️ Электронная почта</a>
+                <a href="https://max.ru/u/f9LHodD0cOL4JED6Z2ls32xK43j9Nb6vSHcsiCU-C5ML7ONwhBhkNnRKHf4">💬 Написать в МАКС</a>
+            </div>
+        </details>
+        <a href="index.html" class="btn btn-secondary">Перейти на сайт</a>
         <a href="cai.html" class="btn btn-secondary">Проект CAI</a>
         <a href="bot.html" class="btn btn-secondary">Бот для поиска работы</a>
     </div>

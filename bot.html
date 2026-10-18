@@ -45,13 +45,60 @@
   .nav { position:fixed; top:0; left:0; right:0; z-index:100; background:transparent; border-bottom:1px solid transparent; transition:background .45s, box-shadow .45s, border-color .45s; }
   .nav-inner { display:flex; align-items:center; justify-content:space-between; height:64px; }
   .logo { font-weight:700; color:#fff; text-decoration:none; transition:color .45s; }
-  .menu { display:flex; gap:22px; align-items:center; }
+  .menu { display:flex; gap:18px; align-items:center; margin-left:auto; }
   .menu a { color:#dfe6ff; text-decoration:none; font-size:15px; transition:color .3s; }
   .menu a:hover { color:#9db4ff; }
   .nav.scrolled { background:rgba(255,255,255,.88); backdrop-filter:blur(12px); border-color:#e7ebf5; box-shadow:0 6px 24px rgba(30,50,120,.08); }
   .nav.scrolled .logo { color:#2a3355; }
   .nav.scrolled .menu a { color:#33406b; }
   .nav.scrolled .menu a:hover { color:#5b6cff; }
+
+  /* Выпадающее меню «Связаться» */
+  .dropdown { position:relative; display:inline-block; }
+  .dropdown summary { list-style:none; cursor:pointer; }
+  .dropdown summary::-webkit-details-marker { display:none; }
+  .dropdown-menu {
+    position:absolute; top:calc(100% + 10px); right:0;
+    background:#fff; border:1px solid #e4d9ff; border-radius:12px;
+    box-shadow:0 12px 30px rgba(30,50,120,.18);
+    min-width:230px; padding:8px; z-index:1000;
+  }
+  .menu .dropdown-menu a {
+    display:block; padding:11px 14px; border-radius:8px;
+    color:#33406b; text-decoration:none; font-size:14px; font-weight:500;
+    white-space:nowrap; transition:background .2s, color .2s;
+  }
+  .menu .dropdown-menu a:hover { background:#eef2ff; color:#5b6cff; }
+
+  /* Кнопка «Связаться» в шапке: 3D, голубое свечение и переливы */
+  .menu .dropdown summary.btn {
+    background:linear-gradient(180deg,#8a9dff,#5b6cff);
+    box-shadow:0 4px 0 #3d4bd6, 0 8px 16px rgba(91,108,255,.35);
+    animation:none;
+    transition:transform .15s, box-shadow .25s, background .25s;
+  }
+  .menu .dropdown summary.btn:hover,
+  .menu .dropdown summary.btn:focus-visible {
+    background:linear-gradient(180deg,#5ec8ff,#2f9bff);
+    color:#fff!important;
+    text-shadow:0 0 10px rgba(180,240,255,.95);
+    animation:contactPulse 1.3s ease-in-out infinite;
+  }
+  .menu .dropdown summary.btn:active { transform:translateY(3px); box-shadow:0 1px 0 #1a7ad0, inset 0 0 22px rgba(190,240,255,1); }
+  .menu .dropdown summary.btn::after { animation:btnShimmer 1.6s linear infinite; }
+  @keyframes btnShimmer { 0%{left:-80%} 100%{left:130%} }
+  @keyframes contactPulse {
+    0%,100% { box-shadow:0 4px 0 #1a7ad0, 0 8px 18px rgba(56,182,255,.5), inset 0 0 12px rgba(190,240,255,.7); }
+    50% { box-shadow:0 4px 0 #1a7ad0, 0 10px 30px rgba(56,182,255,.9), inset 0 0 28px rgba(220,248,255,1); }
+  }
+  .menu .dropdown:hover { animation:none; transform:none; }
+  /* Сбрасываем общий стиль FAQ-details для дропдауна шапки (убирает белый ореол) */
+  .menu .dropdown {
+    background:transparent; border:none; padding:0; margin:0;
+    box-shadow:none; animation:none;
+    overflow:visible;
+  }
+  .menu .dropdown::before, .menu .dropdown::after { display:none; content:none; }
 
   /* ===== HERO ===== */
   .hero { position:relative; min-height:100vh; display:flex; align-items:center; overflow:hidden; padding:120px 0 90px; background:#0b1030; }
@@ -257,6 +304,7 @@
     .buttons { flex-direction: column; align-items: center; gap: 12px; }
     .buttons .btn { width: 100%; max-width: 300px; }
     .menu a:not(.btn) { display: none; }
+    .menu .dropdown-menu a { display:block; }
     .nav-inner { height: 56px; }
     .logo { font-size: 18px; }
     .hero-fade { height: 80px; }
@@ -294,7 +342,14 @@
       <a href="#sources">Источники</a>
       <a href="#pricing">Тарифы</a>
       <a href="#faq">FAQ</a>
-      <a class="btn btn-small" href="#cta">Открыть бота</a>
+      <a href="#cta">Открыть бота</a>
+      <details class="dropdown">
+        <summary class="btn btn-small">Связаться</summary>
+        <div class="dropdown-menu">
+          <a href="mailto:olgahome2008@mail.ru">✉️ Электронная почта</a>
+          <a href="https://max.ru/u/f9LHodD0cOL4JED6Z2ls32xK43j9Nb6vSHcsiCU-C5ML7ONwhBhkNnRKHf4">💬 Написать в МАКС</a>
+        </div>
+      </details>
     </nav>
   </div>
 </header>
