@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <title>Ольга Мартыненко — бизнес-ассистент и помощник первых лиц | O.Martynenko.pro</title>
     <meta name="description" content="Ольга Мартыненко — бизнес-ассистент и эксперт по организационному обеспечению. Более 17 лет работаю помощником первых лиц: организация работы руководителя, документооборот, офис, сайты, приложения, боты и внедрение ИИ.">
 
@@ -29,10 +30,78 @@
             background: linear-gradient(180deg, #fdfeff 0%, #e8edfd 20%, #dcd9ff 45%, #e4ecff 100%); 
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            justify-content: space-between;
+            padding: 100px 20px 40px;
         }
+
+        /* ===== СТЕКЛЯННАЯ ШАПКА ===== */
+        .site-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: linear-gradient(180deg, rgba(255,255,255,.64), rgba(238,242,255,.46));
+            -webkit-backdrop-filter: blur(20px) saturate(1.7);
+            backdrop-filter: blur(20px) saturate(1.7);
+            border-bottom: 1px solid rgba(255,255,255,.72);
+            box-shadow: 0 10px 36px rgba(80,70,180,.10), inset 0 -1px 0 rgba(122,63,240,.06);
+        }
+
+        .site-nav-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            height: 70px; display: flex; align-items: center;
+            justify-content: space-between; gap: 28px;
+        }
+
+        .site-logo {
+            color: #5b6cff; font-weight: 800; font-size: 20px;
+            text-decoration: none; white-space: nowrap; flex-shrink: 0;
+            text-shadow: 0 2px 10px rgba(91,108,255,.25);
+        }
+
+        .site-menu {
+            display: flex; align-items: center; gap: 16px; margin-left: auto;
+        }
+
+        .site-menu > a {
+            color: #7a3ff0; text-decoration: none; font-size: 14px;
+            font-weight: 500; white-space: nowrap;
+            transition: color .3s, text-shadow .3s;
+        }
+
+        .site-menu > a:hover {
+            color: #1a73e8; text-shadow: 0 0 10px rgba(26,115,232,.35);
+        }
+
+        .site-menu .btn {
+            padding: 9px 18px; font-size: 14px; border-radius: 10px;
+            white-space: nowrap;
+        }
+
+        .site-menu .dropdown { position: relative; display: inline-block; }
+        .site-menu .dropdown summary { list-style: none; cursor: pointer; }
+        .site-menu .dropdown summary::-webkit-details-marker { display: none; }
+        .site-menu .dropdown-menu {
+            top: calc(100% + 10px); left: auto; right: 0;
+            transform: none; text-align: left;
+        }
+
+        /* ===== СТЕКЛЯННЫЙ НИЖНИЙ БЛОК ===== */
+        .site-footer {
+            width: 100%; max-width: 1200px; margin: 36px auto 0;
+            padding: 30px 20px; border-radius: 22px;
+            color: #5a6180; font-size: 14px; text-align: center;
+            background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(238,242,255,.50));
+            -webkit-backdrop-filter: blur(20px) saturate(1.6);
+            backdrop-filter: blur(20px) saturate(1.6);
+            border: 1px solid rgba(255,255,255,.78);
+            box-shadow: 0 14px 40px rgba(60,70,150,.10), inset 0 1px 0 rgba(255,255,255,.85);
+        }
+
+        .site-footer a {
+            color: #5b6cff; text-decoration: none; margin: 0 6px;
+        }
+
+        .site-footer a:hover { text-decoration: underline; }
 
         .promo-container {
             max-width: 800px;
@@ -217,13 +286,43 @@
             50% { box-shadow: 0 4px 0 #1a7ad0, 0 10px 30px rgba(56, 182, 255, 0.9), inset 0 0 28px rgba(220, 248, 255, 1); }
         }
 
+        @media (max-width: 1100px) {
+            .site-menu > a:not(.btn) { display: none; }
+        }
+
         @media (max-width: 600px) {
+            body { padding: 88px 16px 30px; }
             .promo-container { padding: 25px; }
             .logo-text { font-size: 22px; }
+            .site-nav-inner { height: 60px; padding: 0 16px; }
+            .site-logo { font-size: 17px; }
+            .site-footer { margin-top: 28px; padding: 24px 16px; }
         }
     </style>
 </head>
 <body>
+
+<header class="site-nav">
+    <div class="site-nav-inner">
+        <a href="index.html" class="site-logo">O.Martynenko.pro</a>
+        <nav class="site-menu">
+            <a href="index.html">Главная</a>
+            <a href="index.html#about">Обо мне</a>
+            <a href="index.html#services">Услуги</a>
+            <a href="index.html#works">Примеры работ</a>
+            <a href="cai.html">Проект CAI →</a>
+            <a href="cai-app.html">Интерфейс CAI →</a>
+            <a href="bot.html">Бот для поиска работы →</a>
+            <details class="dropdown">
+                <summary class="btn">Связаться</summary>
+                <div class="dropdown-menu">
+                    <a href="mailto:olgahome2008@mail.ru">✉️ Электронная почта</a>
+                    <a href="https://max.ru/u/f9LHodD0cOL4JED6Z2ls32xK43j9Nb6vSHcsiCU-C5ML7ONwhBhkNnRKHf4">💬 Написать в МАКС</a>
+                </div>
+            </details>
+        </nav>
+    </div>
+</header>
 
 <div class="promo-container">
     <!-- Логотип, ведущий на главную страницу -->
@@ -265,6 +364,19 @@
         <a href="bot.html" class="btn btn-secondary">Бот для поиска работы</a>
     </div>
 </div>
+
+<footer class="site-footer">
+    <a href="index.html">Главная</a> ·
+    <a href="index.html#about">Обо мне</a> ·
+    <a href="index.html#services">Услуги</a> ·
+    <a href="index.html#works">Примеры работ</a> ·
+    <a href="cai.html">Проект CAI</a> ·
+    <a href="cai-app.html">Интерфейс CAI</a> ·
+    <a href="bot.html">Бот для поиска работы</a> ·
+    <a href="index.html#presentation">Презентация</a>
+    <br><br>
+    © 2026 O.Martynenko.pro — бизнес-ассистент и помощник первых лиц. Все права защищены.
+</footer>
 
 </body>
 </html>

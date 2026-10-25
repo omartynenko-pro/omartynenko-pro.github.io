@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <title>ИИ-ассистент-бот для поиска работы — O.Martynenko.pro</title>
 <meta name="description" content="Находит вакансии, считает Match Score, пишет cover-письма и напоминает о дедлайнах. Бесплатно, в Telegram.">
 
@@ -42,13 +43,25 @@
   .btn-secondary { background:rgba(255,255,255,.7); border:1px solid #c9cde0; color:#2a3355; }
   .btn-small { padding:9px 18px; border-radius:10px; font-size:14px; }
 
-  .nav { position:fixed; top:0; left:0; right:0; z-index:100; background:transparent; border-bottom:1px solid transparent; transition:background .45s, box-shadow .45s, border-color .45s; }
+  .nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:linear-gradient(180deg, rgba(5,30,50,.64), rgba(5,30,50,.30));
+    -webkit-backdrop-filter:blur(18px) saturate(1.7);
+    backdrop-filter:blur(18px) saturate(1.7);
+    border-bottom:1px solid rgba(170,228,255,.16);
+    box-shadow:0 10px 34px rgba(3,18,32,.18), inset 0 -1px 0 rgba(80,210,255,.08);
+    transition:background .45s, box-shadow .45s, border-color .45s;
+  }
   .nav-inner { display:flex; align-items:center; justify-content:space-between; height:64px; }
   .logo { font-weight:700; color:#fff; text-decoration:none; transition:color .45s; }
   .menu { display:flex; gap:18px; align-items:center; margin-left:auto; }
   .menu a { color:#dfe6ff; text-decoration:none; font-size:15px; transition:color .3s; }
   .menu a:hover { color:#9db4ff; }
-  .nav.scrolled { background:rgba(255,255,255,.88); backdrop-filter:blur(12px); border-color:#e7ebf5; box-shadow:0 6px 24px rgba(30,50,120,.08); }
+  .nav.scrolled {
+    background:linear-gradient(180deg, rgba(255,255,255,.80), rgba(232,248,255,.66));
+    border-color:rgba(255,255,255,.86);
+    box-shadow:0 10px 38px rgba(30,50,120,.12), inset 0 -1px 0 rgba(60,190,230,.08);
+  }
   .nav.scrolled .logo { color:#2a3355; }
   .nav.scrolled .menu a { color:#33406b; }
   .nav.scrolled .menu a:hover { color:#5b6cff; }
@@ -286,11 +299,23 @@
     50% { box-shadow:inset 0 0 48px rgba(224,184,66,.75); border-color:rgba(255,215,104,1); }
   }
 
-  footer { padding:34px 0; border-top:1px solid #e7ebf5; color:#7a819c; font-size:14px; text-align:center; background:rgba(255,255,255,.6); }
+  footer {
+    padding:34px 0;
+    color:#5a6180;
+    font-size:14px;
+    text-align:center;
+    background:linear-gradient(180deg, rgba(255,255,255,.52), rgba(232,248,255,.64));
+    -webkit-backdrop-filter:blur(18px) saturate(1.6);
+    backdrop-filter:blur(18px) saturate(1.6);
+    border-top:1px solid rgba(255,255,255,.8);
+    box-shadow:0 -10px 36px rgba(30,50,120,.06), inset 0 1px 0 rgba(255,255,255,.8);
+  }
 
   /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
   @media (max-width: 900px) {
     .sources-grid { grid-template-columns:1fr; }
+    .menu a:not(.btn) { display:none; }
+    .menu .dropdown-menu a { display:block; }
   }
   @media (max-width: 600px) {
     .container { padding:0 16px; }
