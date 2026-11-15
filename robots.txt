@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://omartynenko-pro.github.io/sitemap.xml
